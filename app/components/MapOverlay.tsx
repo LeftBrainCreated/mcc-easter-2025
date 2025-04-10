@@ -1,6 +1,6 @@
 
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useLayoutEffect } from "react"
 import LocationDetailDiv from "./LocationDetailDiv";
 import MapLabel from './MapLabel';
 
@@ -213,13 +213,48 @@ function GetCoordinates(event: React.MouseEvent<HTMLImageElement>, mapRef: React
 
 export default function MapOverlay({ locations }: MapOverlayProps) {
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
+  const [rect, setRect] = useState({ width: 0, height: 0 });
+  const [imgRect, setImgRect] = useState<DOMRect | null>(null);
+
   const mapRef = useRef<HTMLImageElement>(null);
 
+  const updateRect = () => {
+    if (mapRef.current) {
+      setRect(mapRef.current.getBoundingClientRect());
+    }
+  };
+
+  const handleImageLoad = () => {
+    if (mapRef.current) {
+      setImgRect(mapRef.current.getBoundingClientRect());
+    }
+  };
+
+  useLayoutEffect(() => {
+    updateRect();
+  }, [mapRef]);
+
+  // Add an event listener on window resize
+  useEffect(() => {
+    window.addEventListener('resize', updateRect);
+    return () => {
+      window.removeEventListener('resize', updateRect);
+    };
+  }, [mapRef]);
+
+  const computedLeft = (rect.width / 100) * 70;
+  const computedTop = (rect.height / 100) * 5;
+
+  
   return (
-    <div className="absolute">
+    <div 
+      className="absolute top-0 left-0 h-full items-center justify-center overflow-hidden"
+      style={{ justifySelf: "anchor-center", alignSelf: "anchor-center" }}
+    >
       <img
         id="eventMap"
-        src="/easter2025.png"
+        src="/images/easter2025.png"
+        onLoad={handleImageLoad}
         onClick={(event) => GetCoordinates(event, mapRef)}
         alt="Easter 2025"
         className="w-full min-w-200 max-h-dvh"
@@ -234,6 +269,16 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
         key={location.name}
         />
     })}
+
+    <div
+      className={`absolute pointer-events-none font-bold xl:text-5xl lg:text-4xl text-2xl bg-[#847cc1]/90 rounded-xl p-2 text-white text-center z-2`}
+      style={{
+        left: `${computedLeft}px`,
+        top: `${computedTop}px`,
+      }}
+    >
+      <span>Easter Funday</span>
+    </div>
 
 
       <svg className="absolute w-full h-full min-w-200 top-0 left-0">

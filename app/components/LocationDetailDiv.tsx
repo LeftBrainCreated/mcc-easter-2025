@@ -77,9 +77,9 @@ export default function LocationDetailDiv({ name, positionLeft = false}: Locatio
     let desc = descriptions.find((desc) => desc.name === name)?.description;
     return (
         <div className={`absolute text-white max-w-xs text-center ${name == null ? 'h-0 overflow-hidden' : 'h-auto border border-white border-2 p-4 shadow-lg '} bg-[#47bfbb]/90 rounded-2xl ${positionLeft ? 'left-15' : 'right-15'} top-1/4 transform -translate-y-1/2 z-5`}>
-            <h2 className="text-4xl font-semibold text-center">{name}</h2>
+            <h2 className="text-xl lg:text-4xl font-semibold text-center">{name}</h2>
             <br />
-            <p className="text-xl font-semibold">{desc}</p>
+            <p className="text-sm lg:text-xl font-semibold">{desc}</p>
         </div>
     );
 }

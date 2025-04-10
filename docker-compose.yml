@@ -1,0 +1,7 @@
+services:
+  events-host:
+    image: leftbraincreated/events-host:lts
+    build: .
+    container_name: events-host
+    ports:
+      - "3000:3000"
