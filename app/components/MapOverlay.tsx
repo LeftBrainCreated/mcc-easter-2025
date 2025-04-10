@@ -234,6 +234,18 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
     updateRect();
   }, [mapRef]);
 
+  useEffect(() => {
+    const handleWindowLoad = () => {
+      // Recalculate the layout after all resources have loaded
+      if (mapRef.current) {
+        setImgRect(mapRef.current.getBoundingClientRect());
+      }
+    };
+  
+    window.addEventListener("load", handleWindowLoad);
+    return () => window.removeEventListener("load", handleWindowLoad);
+  }, []);  
+
   // Add an event listener on window resize
   useEffect(() => {
     window.addEventListener('resize', updateRect);
