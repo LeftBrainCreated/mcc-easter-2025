@@ -225,9 +225,14 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
   };
 
   const handleImageLoad = () => {
-    if (mapRef.current) {
-      setImgRect(mapRef.current.getBoundingClientRect());
-    }
+    if (!mapRef.current) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (mapRef.current) {
+          setImgRect(mapRef.current.getBoundingClientRect());
+        }
+      });
+    });
   };
 
   useLayoutEffect(() => {
@@ -260,7 +265,7 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
   
   return (
     <div 
-      className="absolute top-0 left-0 h-full items-center justify-center overflow-hidden"
+      className="top-0 left-0 h-full items-center justify-center overflow-hidden"
       style={{ justifySelf: "anchor-center", alignSelf: "anchor-center" }}
     >
       <img
@@ -321,6 +326,7 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
               strokeWidth={isActive ? 3 : 2}
               onMouseEnter={() => setActiveLocation(name)}
               onMouseLeave={() => setActiveLocation(null)}
+              onClick={() => setActiveLocation(name)}
               />
           );
         })}

@@ -39,7 +39,7 @@ export default function MapLabel({ location, mapRef, activeLocation }: MapLabelP
 
   return (
     <div
-      className={`absolute pointer-events-none font-bold max-w-40 text-xs md:text-sm lg:text-base ${activeLocation == location.name ? 'bg-[#47bfbb]/90' : 'bg-[#847cc1]/90'} rounded-xl p-1.5 text-white text-center z-2`}
+      className={`absolute pointer-events-none font-bold max-w-40 text-xs md:text-sm lg:text-base ${activeLocation == location.name ? 'bg-[#47bfbb]/90' : 'bg-[#847cc1]/90'} rounded-xl p-1.5 text-white text-center z-2 lg:mt-0`}
       onClick={() => console.log(`Clicked on ${location.name}`)}
       style={{
         left: `${computedLeft}px`,
