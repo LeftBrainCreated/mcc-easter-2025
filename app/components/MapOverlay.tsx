@@ -298,7 +298,7 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
     </div>
 
 
-      <svg className="absolute w-full h-full min-w-200 top-0 left-0">
+      <svg className="absolute w-full h-full min-w-200 top-0 left-0 mt-10 md:mt-15">
         {locations.map((location) => {
           const { name, coords } = location;
           let rect = { width: 0, height: 0 };
