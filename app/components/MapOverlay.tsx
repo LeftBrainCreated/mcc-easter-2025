@@ -45,7 +45,7 @@ export const locations = [
               {x:7.5, y:55}
             ],
             position: "right",
-            labelLocation: {x: 15, y: 44}
+            labelLocation: {x: 13, y: 42}
           },
           { 
             name: "Connect With Us", coords: [
@@ -57,7 +57,7 @@ export const locations = [
               {x:34.8, y:39.5}
             ],
             position: "right",
-            labelLocation: {x: 33, y: 35}
+            labelLocation: {x: 33, y: 32}
           },
           { 
             name: "Food Trucks", coords: [
@@ -105,7 +105,7 @@ export const locations = [
               {x:35.7, y:64}
             ],
             position: "right",
-            labelLocation: {x: 33, y: 47}
+            labelLocation: {x: 32, y: 44}
           },
           { 
             name: "Walkers-3yrs", coords: [
@@ -115,7 +115,7 @@ export const locations = [
               {x:36.5, y:94}
             ],
             position: "right",
-            labelLocation: {x: 33, y: 83}
+            labelLocation: {x: 29, y: 83}
           },
           { 
             name: "Register & Prizes", coords: [
@@ -127,7 +127,7 @@ export const locations = [
               {x:40.5, y:68}
             ],
             position: "right",
-            labelLocation: {x: 36, y: 63}
+            labelLocation: {x: 39, y: 56}
           },
           { 
             name: "First aid & Baby Changing", coords: [
@@ -215,6 +215,8 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
   const [rect, setRect] = useState({ width: 0, height: 0 });
   const [imgRect, setImgRect] = useState<DOMRect | null>(null);
+  const [showLocations, setShowLocations] = useState(false);
+
 
   const mapRef = useRef<HTMLImageElement>(null);
 
@@ -225,15 +227,34 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
   };
 
   const handleImageLoad = () => {
-    if (!mapRef.current) return;
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (mapRef.current) {
-          setImgRect(mapRef.current.getBoundingClientRect());
-        }
-      });
+      if (mapRef.current) {
+        setImgRect(mapRef.current.getBoundingClientRect());
+      }
     });
   };
+
+  useEffect(() => {
+    let intervalId: any;
+  
+    // Trigger the first call after 1000ms.
+    const timerId = setTimeout(() => {
+      setShowLocations(true);
+  
+      // Start recurring execution every 3000ms.
+      intervalId = setInterval(() => {
+        setShowLocations(true);
+      }, 3000);
+    }, 1000);
+  
+    // Cleanup both the timeout and interval on component unmount.
+    return () => {
+      clearTimeout(timerId);
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, []);
 
   useLayoutEffect(() => {
     updateRect();
@@ -265,7 +286,7 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
   
   return (
     <div 
-      className="top-0 left-0 h-full items-center justify-center overflow-hidden"
+      className="hidden xs:block top-0 left-0 h-full items-center justify-center mt-4 overflow-hidden"
       style={{ justifySelf: "anchor-center", alignSelf: "anchor-center" }}
     >
       <img
@@ -278,14 +299,15 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
         ref={mapRef}
       />
 
-    {locations.map((location) => {
-      return <MapLabel 
-        location={location}
-        mapRef={mapRef}
-        activeLocation={activeLocation}
-        key={location.name}
+
+      {showLocations && locations.map((location) => (
+        <MapLabel 
+          key={location.name}
+          location={location}
+          mapRef={mapRef}
+          activeLocation={activeLocation}
         />
-    })}
+      ))}
 
     <div
       className={`absolute pointer-events-none font-bold xl:text-5xl lg:text-4xl text-2xl bg-[#847cc1]/90 rounded-xl p-2 text-white text-center z-2`}
@@ -298,8 +320,8 @@ export default function MapOverlay({ locations }: MapOverlayProps) {
     </div>
 
 
-      <svg className="absolute w-full h-full min-w-200 top-0 left-0 mt-10 md:mt-15">
-        {locations.map((location) => {
+      <svg className="absolute w-full h-full min-w-200 top-0 left-0">
+        {showLocations && locations.map((location) => {
           const { name, coords } = location;
           let rect = { width: 0, height: 0 };
 
