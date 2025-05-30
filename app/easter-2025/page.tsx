@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import MapOverlay from './components/MapOverlay';
-import { locations } from './components/MapOverlay';
-import { useMapDimensions } from './hooks/useMapDimensions';
+import MapOverlay from '../components/MapOverlay';
+import { locations } from '../components/MapOverlay';
+import { useMapDimensions } from '../hooks/useMapDimensions';
 import { useState, useEffect } from 'react';
 
 export default function Page() {
