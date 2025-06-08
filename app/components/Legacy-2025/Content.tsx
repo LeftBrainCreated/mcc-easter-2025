@@ -14,7 +14,7 @@ export default function Content() {
             <section className="flex flex-col items-center justify-center w-full max-w-4xl  mb-8">
                 <h1 className="font-bold text-6xl mb-8">Legacy of Faith</h1>
                 <h3 className="font-bold text-3xl mb-8" >Happy Father's Day MCC!</h3>
-                <p className="font-bold text-md max-w-3xl mb-4">This Father's Day, we want to encourage you asw the leader of your family. This page will be updated regularly as a resource for you to grow in your faith! Please enjoy this special encouragement from our lead pastor, Josh Poole!</p>
+                <p className="font-bold text-md max-w-3xl mb-4">This Father's Day, we want to encourage you as the leader of your family. This page will be updated regularly as a resource for you to grow in your faith! Please enjoy this special encouragement from our lead pastor, Josh Poole!</p>
                 <iframe className="w-full max-w-120 h-75 mb-4 rounded-lg shadow-lg"
                     // width="560" 
                     // height="315" 
@@ -29,7 +29,7 @@ export default function Content() {
 
             <section id="study" className="flex flex-col items-center justify-center w-full max-w-4xl  mb-8">
                 <h3 className="font-bold text-2xl mb-4"><span className="decoration-none">Bible Reading Plan: Transform</span></h3>
-                <p className="text-sm mb-4 max-w-2xl">This six-day study is a practical guide for men to take action and get unstuck. Each day focuses on one of the "Big Four" areas - Health, finances, relationships, and spiritual life - equipping you with strength that endures. Are you ready to transform? It won't be easy, but it will be worth it. This devotional is written by Pastor Anthony Fleming, Founder of Transform the Movement.</p>
+                <p className="text-sm mb-4 max-w-2xl">This six-day study is a practical guide for men to take action and get unstuck. Each day focuses on one of the "Big Four" areas - health, finances, relationships, and spiritual life - equipping you with strength that endures. Are you ready to transform? It won't be easy, but it will be worth it. This devotional is written by Pastor Anthony Fleming, Founder of Transform the Movement.</p>
                 <a href="https://www.bible.com/en/reading-plans/57791" className="relative mt-4 inline-flex items-center">
                     <div className="absolute top-[3px] left-0 w-full h-full bg-[#9aa7b2] rounded-full z-0"></div>
 
